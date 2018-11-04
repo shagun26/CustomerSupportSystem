@@ -1,106 +1,72 @@
 <html>
 <head>
-<title>Registration</title>
-<script type="text/javascript">
-function loginCheck(){
-	var ok = true;
-	
-	//check user name
-	var p = document.getElementById("username").value;
-	
-	if(!p|| 0 === p.length) {
-		alert("please enter a username!");
-		ok = false;
-	}
-    if(!ok) return false;
-	//check password
-	p = document.getElementById("password").value;
-	//Question why switch < and > would not working here.
-	if (!p|| 0 === p.length){
-		alert("please enter a password");
-		ok = false;
-	}
-	if (!ok) return false;
-	
-	return ok;
-}       
-</script>
-
-<style type="text/css">
-#login2{
-    font-size: 38px;
-    font-family: Sans-serif;
-    text-align: center;
-}
-.usrNpas{
-    width: 100%;
-   padding: 12px 20px;
-   margin: 8px 0;
-   display: inline-block;
-   border: 1px solid #ccc;
-   border-radius: 4px;
-   box-sizing: border-box;
-}
-.loginSubmit{
-   width: 100%;
-   background-color: #ff8040;
-   color: white;
-   padding: 14px 20px;
-   margin: 8px 0;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-   font-size: 13px;
-}
-.loginSubmit :hover {
-   background-color: #87cefa;
-}
-#ls{
-   width: 100%;
-   background-color: white;
-   color: black;
-   padding: 14px 20px;
-   margin: 8px 0;
-   border: 2px solid;
-   border-color: black;
-   border-radius: 4px;
-   cursor: pointer;
-   font-size: 13px;
-}
-.loginPage{
- 
-    padding: 20px;
-    background-color: #81D8D8;
-}
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid lightgray;
-    margin: 1em 0;
-    padding:0;
-}
-</style>
-
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="./main.js"></script>
 </head>
 <body>
-<form action="" method="post">
-<h3 id="login2">Create an Account</h3>
-<div class="loginPage">
-<label for="username">Username</label>
-<input class="usrNpas" type="text" name="username" id="username"/>
-<br />
-<label for="password">Password</label>
-<input class="usrNpas" type="password" name="password" id="password"/></input>
-<input class="loginSubmit" type="submit" name="registerSubmit" value="Register" onclick="return loginCheck();"/>
-<br />
-<hr class="line"></hr>
-<input class="loginSubmit" id ="ls" type="submit" name="login" value="Login"/>
+    <form action="" method="post">
+        <h3 id="login2">Create an Account</h3>
+        <div class="loginPage">
+            <label for="username">Username</label>
+            <input class="usrNpas" type="text" name="username" id="username"/>
+            <br />
+            <label for="password">Password</label>
+            <input class="usrNpas" type="password" name="password" id="password"/>
+            <input class="loginSubmit" type="submit" name="registerSubmit" value="Register" onclick="return loginCheck();"/>
+            <br />
+        </div>
 
-<br />
-<input class="loginSubmit" id ="ls" type="submit" name="home" value="Back to Main Page"/>
-</div>
+    </form>
 
-</form>
+    	<?php
+
+            // When the user hits register.
+            if (isset($_POST["registerSubmit"]))
+            {
+                // Grab credentials.
+                $inputUser = $_POST["username"];
+                $inputPass = $_POST["password"];
+                require_once("connect-db.php");
+
+                // Ensures username not taken.
+                $sql = "SELECT * FROM `users` WHERE `username`='$inputUser'";
+
+                if ($result = mysqli_query($dbLocalhost, $sql))
+                {
+                    $arrResult = mysqli_fetch_array($result);
+                    if (sizeof($arrResult) > 0)
+                    {
+                        echo "<p>There is already a user with this username. Try something else.</p>";
+                    }
+                    else
+                    {
+                        // Adds credentials to database, thus registering user.
+                        $sql = "INSERT INTO `users` VALUES ('$inputUser', '$inputPass')";
+                        if ($result = mysqli_query($dbLocalhost, $sql))
+                        {
+                            echo "<p>You have been registered in the system.</p>";
+
+                        }
+                        else
+                        {
+                            echo "<p>Error, you haven't been added.</p>";
+                            echo mysqli_error($dbLocalhost);
+                        }
+                    }
+                }
+                else
+                {
+                    echo mysqli_error($dbLocalhost);
+                }
+
+            }
+
+        ?>
+
+        <hr class="line">
+        <a href="./login.php">Login</a>
+        <br/>
+        <a href="./mainPage.html">Back to Main Page</a>
 </body>
 </html>

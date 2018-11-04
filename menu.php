@@ -1,60 +1,68 @@
+<?php
+session_start();
+if (!isset($_SESSION["username"]))
+{
+    echo "<script type='text/javascript'> location.href='./mainPage.html'; </script>";
+    exit;
+}
+?>
 <html>
 <head>
     <title>Menu Page</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 
-<style type="text/css">
-#login2{
-    font-size: 38px;
-    font-family: Sans-serif;
-    text-align: center;
-}
-
-#mainPageBut{
-   width: 50%;
-   background-color: #ff8040;
-   color: white;
-   padding: 14px 20px;
-   margin: 8px 0;
-   border: 2px solid;
-   border-color: black;
-   border-radius: 4px;
-   cursor: pointer;
-   font-size: 13px;
-}
-.loginPage{
- 
-    padding: 20px;
-    background-color: #81D8D8;
-    text-align: center;
-
-}
-
-.loginSubmit{
-   width: 100%;
-   background-color: #ff8040;
-   color: white;
-   padding: 14px 20px;
-   margin: 8px 0;
-   border: none;
-   border-radius: 4px;
-   cursor: pointer;
-   font-size: 13px;
-}
-.loginSubmit :hover {
-   background-color: #87cefa;
-}
-
-</style>
-
 <body>
-<h3 id="login2">Menu</h3>
-<div class="loginPage">
-<input class="loginSubmit" id ="mainPageBut" type="submit" name="newMessage" value="New Message"/>
-<input class="loginSubmit" id ="mainPageBut" type="submit" name="inbox" value="Inbox"/>
-<input class="loginSubmit" id ="mainPageBut" type="submit" name="logout" value="Log Out" 
-        onclick="document.location.href='mainPage.php'"/>
+    <h3 id="login2">Menu</h3>
+    <?php
+    $username = $_SESSION["username"];
+    echo "<p>Welcome back, $username!";
+    ?>
+    <form action="" method="POST">
+    <div class="loginPage">
+        <input class="loginSubmit" id ="mainPageBut" type="submit" name="list" value="User List"/>
+        <input class="loginSubmit" id ="mainPageBut" type="submit" name="newMessage" value="New Message"/>
+        <input class="loginSubmit" id ="mainPageBut" type="submit" name="inbox" value="Inbox"/>
+        <input class="loginSubmit" id ="mainPageBut" type="submit" name="transfer" value="Transfer"/>
+        <input class="loginSubmit" id ="mainPageBut" type="submit" name="logout" value="Log Out"/>
 
-</div>
+    </div>
+    </form>
+
+    <?php
+    // If the user is logging out, delete all the session information and move to main page.
+    if (isset($_POST["logout"]))
+    {
+        session_unset();
+        session_destroy();
+        echo "<script type='text/javascript'> location.href='./mainPage.html'; </script>";
+		exit;
+    }
+    // If checking inbox, move to inbox.
+    else if(isset($_POST["inbox"]))
+    {
+        echo "<script type='text/javascript'> location.href='./inbox.php'; </script>";
+		exit;
+    }
+    // If making new message, move to new message page.
+    else if(isset($_POST["newMessage"]))
+    {
+        echo "<script type='text/javascript'> location.href='./newMessage.php'; </script>";
+		exit;
+    }
+    // If transferring users, move to transfer page.
+    else if (isset($_POST["transfer"]))
+    {
+        echo "<script type='text/javascript'> location.href='./transfer.php'; </script>";
+		exit;
+    }
+    else if (isset($_POST["list"]))
+    {
+        echo "<script type='text/javascript'> location.href='./list.php'; </script>";
+		exit;
+    }
+
+
+    ?>
 </body>
 </html>
