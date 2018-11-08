@@ -14,12 +14,17 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>Welcome Anonymous User</h1>
+    <h1 id="login2">Welcome Anonymous User</h1>
+    <a href="./menu.php"><button class="annoLeave">Back To Menu</button></a>
+
     <form action="" method="POST">
-        <label for="name">What would you like to be known as? (You do not have to use a real name!): </label>
-        <input type="text" name="name" id="name">
-        <input type="submit" value="Submit" onclick="return checkName();" name="submit">
-        
+        <div class="loginPage">
+        <p for="name" class="annoSetup">What would you like to be known as?</p>
+        <p class="note">(You do not have to use a real name!) </p>
+        <br />
+        <input type="text" class="usrNpas" name="name" id="name">
+        <input type="submit" class="loginSubmit" value="Submit" onclick="return checkName();" name="submit">
+        </div>
     </form>
 
     <?php

@@ -14,25 +14,30 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>Anonymous User Chat</h1>
-    
+    <h1 id="login2">Anonymous User Chat</h1>
+    <div class="loginPage">
     <form action="" method="POST">
-        <input type="submit" name="leave" id="leave" value="Leave">
+        <input class="annoLeave" type="submit" name="leave" id="leave" value="Leave">
     </form>
 
 
     <form action="" method="POST">
-        <p>To: <?php echo "$helper"; ?>.</p>
-        <label for="message">Message: </label>
-        <input type="text" name="message" id="message">
-        <input type="submit" name="submit" id="submit" onclick="return messageCheckAnon();">
+        <p class="annoSetup">To: <?php echo "$helper"; ?>.</p>
+        <div class="annoMainPage">
+        <label for="message">Message</label>
+        <br />
+        <input type="text" class="annoInput" name="message" id="message">
+        <input type="submit" class="annoSubmit" name="submit" id="submit" value = "Send" onclick="return messageCheckAnon();">
+        </div>
     </form>
-
+    <br />
     <form action="" method="POST">
-        <label for="deleteID">Delete Message #: </label>
-        <input type="number" name="deleteID" pattern="[0-9]">
-
-        <input type="submit" name="delete" value="Delete">
+        <div class="annoMainPage">
+        <label for="deleteID">Delete Message # </label>
+        <br />
+        <input type="number" class="annoInput" name="deleteID" pattern="[0-9]">
+        <input type="submit" class="annoSubmit" name="delete" value="Delete">
+        </div>
     </form>
 
     
@@ -55,7 +60,7 @@ require_once("connect-db.php");
         $sql = "DELETE FROM `messages` WHERE `mid`='$id' AND `to`='$username'";
         if ($result = mysqli_query($dbLocalhost, $sql))
         {
-            echo "<p>Message deleted.</p>";
+            echo "<p class='annoSetup'>Message deleted.</p>";
         }
         else
         {
@@ -72,8 +77,8 @@ require_once("connect-db.php");
         // List the messages.
         while ($row = mysqli_fetch_row($result))
         {
-            echo "<p>ID: $row[0]    From: $row[1]   To: $row[2]</p>";
-            echo "<p>Message: $row[3]</p>";
+            echo "<p class='annoSetup'>ID: $row[0]  <br />  From: $row[1]  <br />  To: $row[2]</p>";
+            echo "<p class='annoSetup'>Message: $row[3]</p>";
             echo "<br>";
         }
     }
@@ -150,5 +155,6 @@ if (isset($_POST["submit"]))
             }
         }
     ?>
+    </div>
 </body>
 </html>

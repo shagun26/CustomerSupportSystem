@@ -11,16 +11,19 @@
 <html>
 <head>
     <title>Inbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 </head>
 <body>
     <h3 id="login2">Inbox</h3>
-    <a href="./menu.php">Back To Menu</a>
-    
+    <a href="./menu.php"><button class="annoLeave">Back To Menu</button></a>
+    <div class="loginPage">
     <form action="" method="POST">
-        <label for="deleteID">Delete Message #: </label>
-        <input type="number" name="deleteID" pattern="[0-9]">
+        <label for="deleteID">Delete Message # </label>
+        <br />
+        <input type="number" name="deleteID" class="annoInput" pattern="[0-9]">
 
-        <input type="submit" name="delete" value="Delete">
+        <input type="submit" name="delete" class="annoSubmit" value="Delete">
     </form>
     <?php
 
@@ -53,8 +56,8 @@
         // Displays them.
         while ($row = mysqli_fetch_row($result))
         {
-            echo "<p>ID: $row[0]    From: $row[1]   To: $row[2]</p>";
-            echo "<p>Message: $row[3]</p>";
+            echo "<p class='annoSetup'>ID: $row[0]  <br />  From: $row[1] <br />  To: $row[2]</p>";
+            echo "<p class='annoSetup'>Message: $row[3]</p>";
             echo "<br>";
         }
     }
@@ -64,6 +67,7 @@
     }
 
     ?>
+    </div>
 
 </body>
 </html>

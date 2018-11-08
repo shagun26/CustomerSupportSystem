@@ -17,13 +17,23 @@ if (!isset($_SESSION["username"]))
 </head>
 <body>
     <h3 id="login2">New Message</h3>
-    <a href="./menu.php">Back To Menu</a>
+    <div class="loginPage">
+    <a href="./menu.php"><button class="annoLeave">Back To Menu</button></a>
     <form action="" method="POST">
-        <label for="to">To: </label>
-        <input type="text" name="to" id="to">
-        <label for="message">Message: </label>
-        <input type="text" name="message" id="message">
-        <input type="submit" name="submit" id="submit" onclick="return messageCheck();">
+        <div class="annoMainPage">
+        <label for="to">To </label>
+        <br />
+        <input type="text" class="annoInput" name="to" id="to">
+        </div>
+
+        <br />
+        <div class="annoMainPage">
+        <label for="message">Message </label>
+        <br />
+        <input type="text" name="message" class="annoInput" id="message">
+       <br />
+        <input type="submit" name="submit" class="annoSubmit" id="submit" value="Send" onclick="return messageCheck();">
+       </div>
     </form>
 
     <?php
@@ -68,5 +78,6 @@ if (!isset($_SESSION["username"]))
 
         }
     ?>
+    </div>
 </body>
 </html>

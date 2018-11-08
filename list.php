@@ -20,11 +20,12 @@
 </head>
 <body>
     
-<a href="./menu.php">Back To Menu</a>
-<br>
+<a href="./menu.php"><button class="annoLeave">Back To Menu</button></a>
+<br />
+<div class="loginPage">
 <?php
 
-    echo "<h1>Help Desk Users:</h1>";
+    echo "<br /><h1 class='listF'>Help Desk Users </h1>";
 
     require_once("connect-db.php");
 
@@ -43,7 +44,7 @@
         echo mysqli_error($dbLocalhost);
     }
 
-    echo "<h1>Anonymous Users:</h1>";
+    echo "<h1 class='listF'>Anonymous Users </h1>";
 
     $sql = "SELECT * FROM `anonymoususers`";
 
@@ -63,5 +64,6 @@
 
 
 ?>
+</div>
 </body>
 </html>

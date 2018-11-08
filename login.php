@@ -70,9 +70,9 @@
 
 	<hr class="line">
 			
-	<a href="./register.php">Register</a>
+	<a href="./register.php"><button class="loginSubmit">Register</button></a>
 	<br/>
-	<a href="./mainPage.html">Back to Main Page</a>
+	<a href="./mainPage.html"><button class="loginSubmit">Back to Main Page</button></a>
 </body>
 
 </html>

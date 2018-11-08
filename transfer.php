@@ -16,11 +16,16 @@ if (!isset($_SESSION["username"]))
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>Transfer an Anonymous User</h1>
+    <h1 id="login2">Transfer an Anonymous User</h1>
+    <div class="loginPage">
+    <a href="./menu.php"><button class="annoLeave">Back To Menu</button></a>
+
     <form action="" method="POST">
-        <label for="transferee">Who do you wish to transfer?: </label>
-        <input type="text" name="transferee" id="transferee">
-        <input type="submit" value="Transfer" name="transfer">
+        <label for="transferee" class="annoSetup">Who do you wish to transfer? </label>
+        <br />
+        <input type="text" name="transferee" class="annoInput" id="transferee">
+        <br />
+        <input type="submit" value="Transfer" class="annoSubmit" name="transfer">
     </form>
 
     <?php
@@ -119,5 +124,6 @@ if (!isset($_SESSION["username"]))
     }
 
     ?>
+    </div>
 </body>
 </html>

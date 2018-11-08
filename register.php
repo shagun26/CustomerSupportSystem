@@ -65,8 +65,8 @@
         ?>
 
         <hr class="line">
-        <a href="./login.php">Login</a>
+        <a href="./login.php"><button class="loginSubmit">Login</button></a>
         <br/>
-        <a href="./mainPage.html">Back to Main Page</a>
+        <a href="./mainPage.html"><button class="loginSubmit">Back to Main Page</button></a>
 </body>
 </html>
