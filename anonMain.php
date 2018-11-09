@@ -1,8 +1,8 @@
 <?php
-    // Open existing session. Refreshes every minute for new messages.
+    // Open existing session. Refreshes every 5 seconds for new messages.
     session_start();
     $helper = $_SESSION["helper"];
-    header("Refresh: 60;"); 
+    header("Refresh: 5;"); 
 ?>
 <!DOCTYPE html>
 <html>

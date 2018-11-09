@@ -45,7 +45,7 @@ if (!isset($_SESSION["username"]))
             $from = $_SESSION["username"];
 
             require_once("connect-db.php");
-            $sql = "SELECT * FROM `users` WHERE `username`='$to'";
+            $sql = "SELECT `username` FROM `users` WHERE `username`='$to' UNION SELECT `username` FROM `anonymoususers` WHERE `username`='$to'";
             if ($result = mysqli_query($dbLocalhost, $sql))
             {
                 if (mysqli_num_rows($result) == 0)

@@ -30,7 +30,7 @@
                 require_once("connect-db.php");
 
                 // Ensures username not taken.
-                $sql = "SELECT * FROM `users` WHERE `username`='$inputUser'";
+                $sql = "SELECT `username` FROM `users` WHERE `username`='$inputUser' UNION SELECT `username` FROM `anonymoususers` WHERE `username`='$inputUser'";
 
                 if ($result = mysqli_query($dbLocalhost, $sql))
                 {

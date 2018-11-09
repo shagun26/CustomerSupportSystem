@@ -39,69 +39,94 @@
 
             require_once("connect-db.php");
 
-            // Delete the running count of anonymous users (as it can fluctuate greatly).
-            $sql = "DELETE FROM `numassigned`";
-            if ($result = mysqli_query($dbLocalhost, $sql))
-			{
+            // Ensures username not taken.
+            $sql = "SELECT `username` FROM `users` WHERE `username`='$anonUser' UNION SELECT `username` FROM `anonymoususers` WHERE `username`='$anonUser'";
 
-			}
-			else
-			{
-				echo mysqli_error($dbLocalhost);
-			}
-
-            // Make a list of all the current help desk users.
-            $sql = "INSERT INTO `numassigned` (`username`) SELECT `username` FROM `users`";
             if ($result = mysqli_query($dbLocalhost, $sql))
             {
-            
-            }
-            else
-			{
-				echo mysqli_error($dbLocalhost);
-            }
-            
-            // Count the number of anonymous users each help desk user has.
-            $sql = "UPDATE `numassigned` SET `number` = (SELECT count(*) FROM `anonymoususers` WHERE `assignedto`=`numassigned`.`username`)";
-            if ($result = mysqli_query($dbLocalhost, $sql))
-            {
-
-            }
-            else
-			{
-				echo mysqli_error($dbLocalhost);
-            }
-
-            // Now that we have the count, find the help desk user with minimum anonymous users and give them the user.
-            $sql = "SELECT * FROM `numassigned`";
-            if ($result = mysqli_query($dbLocalhost, $sql))
-            {
-                $minimumPerson = "Anon";
-                $minimumValue = 1000;
-                while ($row = mysqli_fetch_row($result))
+                $arrResult = mysqli_fetch_array($result);
+                if (sizeof($arrResult) > 0)
                 {
-                    if ($row[1] < $minimumValue)
-                    {
-                        $minimumPerson = $row[0];
-                        $minimumValue = $row[1];
-                    }
-                }
-                
-                // Save the pairing to the database and the anonymous user's session.
-                $sql = "INSERT INTO `anonymousUsers` (`username`, `assignedto`) VALUES ('$anonUser', '$minimumPerson')";
-                if ($result = mysqli_query($dbLocalhost, $sql))
-                {
-                    $_SESSION["helper"] = $minimumPerson;
-                    echo "<script type='text/javascript'> location.href='./anonMain.php'; </script>";
-                    exit;
+                    echo "<p>There is already a user with this username. Try something else.</p>";
                 }
                 else
                 {
-                    echo mysqli_error($dbLocalhost);
-                }
+
+                    // Delete the running count of anonymous users (as it can fluctuate greatly).
+                    $sql = "DELETE FROM `numassigned`";
+                    if ($result = mysqli_query($dbLocalhost, $sql))
+                    {
+
+                    }
+                    else
+                    {
+                        echo mysqli_error($dbLocalhost);
+                    }
+
+                    // Make a list of all the current help desk users.
+                    $sql = "INSERT INTO `numassigned` (`username`) SELECT `username` FROM `users`";
+                    if ($result = mysqli_query($dbLocalhost, $sql))
+                    {
+
+                    }
+                    else
+                    {
+                        echo mysqli_error($dbLocalhost);
+                    }
+                    
+                    // Count the number of anonymous users each help desk user has.
+                    $sql = "UPDATE `numassigned` SET `number` = (SELECT count(*) FROM `anonymoususers` WHERE `assignedto`=`numassigned`.`username`)";
+                    if ($result = mysqli_query($dbLocalhost, $sql))
+                    {
+
+                    }
+                    else
+                    {
+                        echo mysqli_error($dbLocalhost);
+                    }
+
+                    // Now that we have the count, find the help desk user with minimum anonymous users and give them the user.
+                    $sql = "SELECT * FROM `numassigned`";
+                    if ($result = mysqli_query($dbLocalhost, $sql))
+                    {
+                        $minimumPerson = "Anon";
+                        $minimumValue = 1000;
+                        while ($row = mysqli_fetch_row($result))
+                        {
+                            if ($row[1] < $minimumValue)
+                            {
+                                $minimumPerson = $row[0];
+                                $minimumValue = $row[1];
+                            }
+                        }
+
+                        
+                        
+                        // Save the pairing to the database and the anonymous user's session.
+                        $sql = "INSERT INTO `anonymousUsers` (`username`, `assignedto`) VALUES ('$anonUser', '$minimumPerson')";
+                        if ($result = mysqli_query($dbLocalhost, $sql))
+                        {
+                            $_SESSION["helper"] = $minimumPerson;
+                            echo "<script type='text/javascript'> location.href='./anonMain.php'; </script>";
+                            exit;
+                        }
+                        else
+                        {
+                            echo mysqli_error($dbLocalhost);
+                        }
 
         
+                       }
+
+                }
+
             }
+            else
+            {
+                echo mysqli_error($dbLocalhost);
+            }
+
+
 
         }
     ?>
