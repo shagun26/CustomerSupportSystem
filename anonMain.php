@@ -146,7 +146,7 @@ if (isset($_POST["submit"]))
                 // Delete their session data and exit to main page.
                 session_unset();
                 session_destroy();
-                echo "<script type='text/javascript'> location.href='./mainPage.html'; </script>";
+                echo "<script type='text/javascript'> location.href='./index.html'; </script>";
                 exit;
             }
             else

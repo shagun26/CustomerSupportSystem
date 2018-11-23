@@ -3,7 +3,7 @@
     session_start();
     if (!isset($_SESSION["username"]))
     {
-        echo "<script type='text/javascript'> location.href='./mainPage.html'; </script>";
+        echo "<script type='text/javascript'> location.href='./index.html'; </script>";
         exit;
     }
     header("Refresh: 60;"); 

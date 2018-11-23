@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION["username"]))
 {
-    echo "<script type='text/javascript'> location.href='./mainPage.html'; </script>";
+    echo "<script type='text/javascript'> location.href='./index.html'; </script>";
     exit;
 }
 ?>
@@ -35,7 +35,7 @@ if (!isset($_SESSION["username"]))
     {
         session_unset();
         session_destroy();
-        echo "<script type='text/javascript'> location.href='./mainPage.html'; </script>";
+        echo "<script type='text/javascript'> location.href='./index.html'; </script>";
 		exit;
     }
     // If checking inbox, move to inbox.
