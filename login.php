@@ -72,7 +72,7 @@
 			
 	<a href="./register.php"><button class="loginSubmit">Register</button></a>
 	<br/>
-	<a href="./mainPage.html"><button class="loginSubmit">Back to Main Page</button></a>
+	<a href="./index.html"><button class="loginSubmit">Back to Main Page</button></a>
 </body>
 
 </html>
