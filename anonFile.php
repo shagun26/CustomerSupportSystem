@@ -112,7 +112,7 @@ if (isset($_POST["submit"]))
     // If file is uploaded, check if image.
     if ($_FILES["file"]["tmp_name"] != null)
     {
-        $check = getimagesize($_FILES["file"]["tmp_name"]);
+   //     $check = getimagesize($_FILES["file"]["tmp_name"]);
     }
     // If no file selected, warn.
     else
@@ -123,11 +123,11 @@ if (isset($_POST["submit"]))
     if (isset($check))
     {
         // If file is not an image.
-        if ($check == false)
-        {
-            echo "<p>That file is not an image. Only images are supported.</p>";
-            $uploadOk = 0;
-        }
+        // if ($check == false)
+        // {
+        //     echo "<p>That file is not an image. Only images are supported.</p>";
+        //     $uploadOk = 0;
+        // }
         // If file is already in system.
         if (file_exists($target_file))
         {
@@ -140,11 +140,11 @@ if (isset($_POST["submit"]))
             $uploadOk = 0;
         }
         // If file is not jpg, png, or jpeg.
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") 
-        {
-            echo "Sorry, only JPG, JPEG, and PNG files are allowed.";
-            $uploadOk = 0;
-        }
+//      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") 
+//    {
+//            echo "Sorry, only JPG, JPEG, and PNG files are allowed.";
+//           $uploadOk = 0;
+//      }
         // If everything so far is okay, then upload.
         if ($uploadOk == 1)
         {

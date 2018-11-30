@@ -16,8 +16,8 @@ if (!is_dir("./uploads"))
 
         <div class="search-container">
                 <form action="" method="POST">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit" name="submitsearch">Submit</button>
+                <input class="bar" type="text" placeholder="Search.." name="search">
+                <button class="search" type="submit" name="submitsearch">Submit</button>
             </form>
         </div>
 
