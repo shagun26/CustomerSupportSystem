@@ -3,7 +3,7 @@
     session_start();
     if (!isset($_SESSION["username"]))
     {
-        echo "<script type='text/javascript'> location.href='./index.html'; </script>";
+        echo "<script type='text/javascript'> location.href='./index.php'; </script>";
         exit;
     }
     header("Refresh: 5;"); 
@@ -48,6 +48,29 @@
 
     }
 
+    echo "<h3>Files</h3>";
+
+    // Select all the files to this user.
+    $sql = "SELECT * FROM `files` WHERE `to`='$username'";
+    
+    if ($result = mysqli_query($dbLocalhost, $sql))
+    {
+        // List the files.
+        while ($row = mysqli_fetch_row($result))
+        {
+            echo "<p class='annoSetup'>ID: $row[0]  <br />  From: $row[1]  <br />  To: $row[2]</p>";
+            echo "<p class='annoSetup'>Name: $row[3]</p>";
+            echo "<a href='./uploads/$row[1]/$row[3]' download>Download</a>";
+            echo "<br>";
+        }
+    }
+    else
+    {
+        echo mysqli_error($dbLocalhost);
+    }
+
+    echo "<h3>Messages</h3>";
+
     // Select all the messages to this user.
     $sql = "SELECT * FROM `messages` WHERE `to`='$username'";
 
@@ -65,6 +88,7 @@
     {
         echo mysqli_error($dbLocalhost);
     }
+
 
     ?>
     </div>

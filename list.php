@@ -1,9 +1,9 @@
 <?php
-    // Opens the session, ensures that the user is signed in, also refreshed the page every minute for new messages.
+    // Opens the session, ensures that the user is signed in, also refreshes the page every minute for new messages.
     session_start();
     if (!isset($_SESSION["username"]))
     {
-        echo "<script type='text/javascript'> location.href='./index.html'; </script>";
+        echo "<script type='text/javascript'> location.href='./index.php'; </script>";
         exit;
     }
     header("Refresh: 60;"); 

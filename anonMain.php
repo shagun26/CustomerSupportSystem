@@ -1,6 +1,11 @@
 <?php
     // Open existing session. Refreshes every 5 seconds for new messages.
     session_start();
+    if (!isset($_SESSION["anonName"]))
+    {
+        echo "<script type='text/javascript'> location.href='./anonSetup.html'; </script>";
+        exit;
+    }
     $helper = $_SESSION["helper"];
     header("Refresh: 5;"); 
 ?>
@@ -22,7 +27,7 @@
 
 
     <form action="" method="POST">
-        <p class="annoSetup">To: <?php echo "$helper"; ?>.</p>
+        <p class="annoSetup">To: <?php echo "$helper"; ?></p>
         <div class="annoMainPage">
         <label for="message">Message</label>
         <br />
@@ -40,7 +45,7 @@
         </div>
     </form>
 
-    
+    <a href="./anonFile.php"><button class="annoSubmit">Upload A File</button></a>
 
     
     <?php 
@@ -146,13 +151,14 @@ if (isset($_POST["submit"]))
                 // Delete their session data and exit to main page.
                 session_unset();
                 session_destroy();
-                echo "<script type='text/javascript'> location.href='./index.html'; </script>";
+                echo "<script type='text/javascript'> location.href='./index.php'; </script>";
                 exit;
             }
             else
             {
                 echo mysqli_error($dbLocalhost);
             }
+
         }
     ?>
     </div>

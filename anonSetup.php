@@ -106,6 +106,10 @@
                         $sql = "INSERT INTO `anonymousUsers` (`username`, `assignedto`) VALUES ('$anonUser', '$minimumPerson')";
                         if ($result = mysqli_query($dbLocalhost, $sql))
                         {
+                            if (!is_dir('./uploads/' . $anonUser))
+                            {
+                                mkdir('./uploads/' . $anonUser, 0777, true);
+                            }
                             $_SESSION["helper"] = $minimumPerson;
                             echo "<script type='text/javascript'> location.href='./anonMain.php'; </script>";
                             exit;
