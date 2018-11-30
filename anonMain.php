@@ -3,7 +3,7 @@
     session_start();
     if (!isset($_SESSION["anonName"]))
     {
-        echo "<script type='text/javascript'> location.href='./anonSetup.html'; </script>";
+        echo "<script type='text/javascript'> location.href='./anonSetup.php'; </script>";
         exit;
     }
     $helper = $_SESSION["helper"];
