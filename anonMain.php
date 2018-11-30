@@ -146,6 +146,12 @@ if (isset($_POST["submit"]))
             
             // Delete the user from the anonymous user list.
             $sql = "DELETE FROM `anonymoususers` WHERE `username` = '$anonName'";
+            mysqli_query($dbLocalhost, $sql);
+            $sql = "DELETE FROM `messages` WHERE `from` = '$anonName'";
+            mysqli_query($dbLocalhost, $sql);
+            $sql = "DELETE FROM `files` WHERE `from` = '$anonName'";
+
+
             if ($result = mysqli_query($dbLocalhost, $sql))
             {
                 // Delete their session data and exit to main page.

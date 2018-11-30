@@ -120,8 +120,8 @@ if (isset($_POST["submit"]))
         echo "<p>You did not select a file.</p>";
     }
 
-    if (isset($check))
-    {
+   // if (isset($check))
+   // {
         // If file is not an image.
         // if ($check == false)
         // {
@@ -158,7 +158,7 @@ if (isset($_POST["submit"]))
             }
         }
 
-    }
+   // }
 
     // Set the parameters: from, to, file name.
     $from = $_SESSION["anonName"];
