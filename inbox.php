@@ -18,6 +18,7 @@
     <h3 id="login2">Inbox</h3>
     <a href="./menu.php"><button class="annoLeave">Back To Menu</button></a>
     <div class="loginPage">
+
     <form action="" method="POST">
         <label for="deleteID">Delete Message # </label>
         <br />
@@ -25,12 +26,23 @@
 
         <input type="submit" name="delete" class="annoSubmit" value="Delete">
     </form>
+
+    <form action="" method="POST">
+        <label for="deleteID">Delete File #</label>
+        <br />
+        <input type="number" class="annoInput" name="deletefileID" pattern="[0-9]">
+        <input type="submit" class="annoSubmit" name="deletefile" value="Delete">
+
+    </form>
+
+    
+
     <?php
 
     $username = $_SESSION["username"];
     require_once("connect-db.php");
 
-    // If user hits delete.
+    // If user hits delete for a message.
     if (isset($_POST["delete"]))
     {
         $id = $_POST["deleteID"];
@@ -47,6 +59,36 @@
         }
 
     }
+
+    // If user hits delete for a file.
+    if (isset($_POST["deletefile"]))
+    {
+        // Look at the file ID that will be deleted.
+        $id = $_POST["deletefileID"];
+
+        // Grab the file name.
+        $sql = "SELECT `name`, `from` FROM `files` WHERE `fid`='$id' AND `to`='$username'";
+
+        if ($result = mysqli_query($dbLocalhost, $sql))
+        {
+            // Delete the file from server with matching name.
+            $row = mysqli_fetch_row($result);
+            $sender = $row[1];
+            $fileName = $row[0];
+            unlink("./uploads/" . $sender . "/" . $fileName);
+            // Delete file from database.
+            $sql = "DELETE FROM `files` WHERE `fid`='$id' AND `to`='$username'";
+            mysqli_query($dbLocalhost, $sql);
+        }
+        else
+        {
+            echo mysqli_error($dbLocalhost);
+        }
+
+
+
+    }
+
 
     echo "<h3>Files</h3>";
 
