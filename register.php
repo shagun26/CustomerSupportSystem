@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
     <title>Registration</title>
@@ -28,9 +31,14 @@
                 $inputUser = $_POST["username"];
                 $inputPass = $_POST["password"];
                 require_once("connect-db.php");
+                $sanitizedUser = strip_tags($inputUser);
+                if ($sanitizedUser != $inputUser)
+                {
+                    echo "<p>Your username had to be sanitized. Your registered username is $sanitizedUser</p>";
+                } 
 
                 // Ensures username not taken.
-                $sql = "SELECT `username` FROM `users` WHERE `username`='$inputUser' UNION SELECT `username` FROM `anonymoususers` WHERE `username`='$inputUser'";
+                $sql = "SELECT `username` FROM `users` WHERE `username`='$sanitizedUser' UNION SELECT `username` FROM `anonymoususers` WHERE `username`='$sanitizedUser'";
 
                 if ($result = mysqli_query($dbLocalhost, $sql))
                 {
@@ -42,7 +50,7 @@
                     else
                     {
                         // Adds credentials to database, thus registering user.
-                        $sql = "INSERT INTO `users` VALUES ('$inputUser', '$inputPass')";
+                        $sql = "INSERT INTO `users` VALUES ('$sanitizedUser', '$inputPass')";
                         if ($result = mysqli_query($dbLocalhost, $sql))
                         {
                             echo "<p>You have been registered in the system.</p>";

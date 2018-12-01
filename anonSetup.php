@@ -111,6 +111,10 @@
                                 mkdir('./uploads/' . $anonUser, 0777, true);
                             }
                             $_SESSION["helper"] = $minimumPerson;
+
+                            // Create an Anon object to hold name/helper. Only to show OOP.
+                            $anon = new Anon($anonUser, $minimumPerson);
+
                             echo "<script type='text/javascript'> location.href='./anonMain.php'; </script>";
                             exit;
                         }
